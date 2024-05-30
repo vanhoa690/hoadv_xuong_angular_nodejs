@@ -7,10 +7,11 @@ class ProductsController {
   async getAllProducts(req, res, next) {
     try {
       const products = await Product.find();
-      res.status(StatusCodes.OK).json({
-        message: "Get All Products Done",
-        data: products,
-      });
+      // res.status(StatusCodes.OK).json({
+      //   message: "Get All Products Done",
+      //   data: products,
+      // });
+      res.status(StatusCodes.OK).json(products);
     } catch (error) {
       next(error);
     }
@@ -18,7 +19,7 @@ class ProductsController {
   // GET /products/:id
   async getProductDetail(req, res, next) {
     try {
-      const product = await Product.findById(req.params.id);
+      const product = await Product.findById(req.params._id);
 
       if (!product) throw new ApiError(404, "Product Not Found");
       res.status(StatusCodes.OK).json({
@@ -44,12 +45,9 @@ class ProductsController {
   // PUT /products/:id
   async updateProduct(req, res, next) {
     try {
-      const product = await Product.findByIdAndUpdate(
-        req.params.id,
-        req.body
-      );
+      const product = await Product.findByIdAndUpdate(req.params._id, req.body);
       if (!product) throw new ApiError(404, "Product Not Found");
-      const updateProduct = await Product.findById(req.params.id);
+      const updateProduct = await Product.findById(req.params._id);
       res.status(StatusCodes.OK).json({
         message: "Update Product Successfull",
         data: updateProduct,
@@ -61,7 +59,7 @@ class ProductsController {
   // DELETE /products/:id
   async deleteProduct(req, res, next) {
     try {
-      const product = await Product.findByIdAndDelete(req.params.id);
+      const product = await Product.findByIdAndDelete(req.params._id);
       if (!product) throw new ApiError(404, "Product Not Found");
       res.status(StatusCodes.OK).json({
         message: "Delete Product Done",

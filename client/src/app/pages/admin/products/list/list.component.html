@@ -1,0 +1,40 @@
+<h2 class="text-center my-3">Product List</h2>
+<!-- Copy Code Lab 2: Table Product List -->
+<div class="container">
+  <div class="card">
+    <a routerLink="/admin/products/create" class="btn btn-success"
+      >Create Product</a
+    >
+    <div class="card-header">Product Info</div>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Image</th>
+        <th>Actions</th>
+      </tr>
+
+      @for (product of products; track product._id) {
+      <tr>
+        <td>{{ product.title }}</td>
+        <td><img [src]="product.image" width="100px" /></td>
+        <td>
+          <a class="btn btn-warning" [routerLink]="['/products', product._id]"
+            >View</a
+          >
+          <a
+            class="btn btn-info"
+            [routerLink]="['/admin/products/update', product._id]"
+            >Edit</a
+          >
+          <button
+            class="btn btn-danger"
+            (click)="handleDeleteProduct(product._id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      }
+    </table>
+  </div>
+</div>
