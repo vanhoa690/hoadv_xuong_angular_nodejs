@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const BidSchema = new Schema(
   {
     user: {
-      type: [Schema.Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
     price: {
@@ -18,6 +18,6 @@ const BidSchema = new Schema(
   }
 );
 
-const Bid = mongoose.model("BidSession", BidSchema);
+const Bid = mongoose.model("Bid", BidSchema);
 
 export default Bid;

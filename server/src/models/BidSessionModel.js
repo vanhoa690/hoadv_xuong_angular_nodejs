@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const BidSessionSchema = new Schema(
   {
     product: {
-      type: [Schema.Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "Product",
     },
     start: {

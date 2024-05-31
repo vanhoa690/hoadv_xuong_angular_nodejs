@@ -7,6 +7,10 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
+    price: {
+      type: Number,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
@@ -14,6 +18,18 @@ const ProductSchema = new Schema(
     image: {
       type: String,
       required: true,
+    },
+    // category: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Category",
+    // },
+    isShow: {
+      type: Boolean,
+      default: true,
+    },
+    bidSession: {
+      type: Schema.Types.ObjectId,
+      ref: "BidSession",
     },
   },
   {

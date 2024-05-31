@@ -7,10 +7,7 @@ class CategoriesController {
   async getAllCategories(req, res, next) {
     try {
       const categories = await Category.find();
-      res.status(StatusCodes.OK).json({
-        message: "Get All Categories Done",
-        data: categories,
-      });
+      res.status(StatusCodes.OK).json(categories);
     } catch (error) {
       next(error);
     }
@@ -21,10 +18,7 @@ class CategoriesController {
       const category = await Category.findById(req.params._id);
 
       if (!category) throw new ApiError(404, "Category Not Found");
-      res.status(StatusCodes.OK).json({
-        message: "Get Category Detail Done",
-        data: category,
-      });
+      res.status(StatusCodes.OK).json(category);
     } catch (error) {
       next(error);
     }

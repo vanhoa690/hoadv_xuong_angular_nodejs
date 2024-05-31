@@ -30,7 +30,7 @@ export class ProductCreateComponent {
     image: new FormControl('', [Validators.required]),
     price: new FormControl(0, [Validators.required, Validators.min(0)]),
     description: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
+    // category: new FormControl('', [Validators.required]),
     isShow: new FormControl(true),
   });
 

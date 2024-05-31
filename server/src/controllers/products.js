@@ -7,10 +7,6 @@ class ProductsController {
   async getAllProducts(req, res, next) {
     try {
       const products = await Product.find();
-      // res.status(StatusCodes.OK).json({
-      //   message: "Get All Products Done",
-      //   data: products,
-      // });
       res.status(StatusCodes.OK).json(products);
     } catch (error) {
       next(error);
@@ -22,10 +18,7 @@ class ProductsController {
       const product = await Product.findById(req.params._id);
 
       if (!product) throw new ApiError(404, "Product Not Found");
-      res.status(StatusCodes.OK).json({
-        message: "Get Product Detail Done",
-        data: product,
-      });
+      res.status(StatusCodes.OK).json(product);
     } catch (error) {
       next(error);
     }
@@ -59,7 +52,7 @@ class ProductsController {
   // DELETE /products/:id
   async deleteProduct(req, res, next) {
     try {
-      const product = await Product.findByIdAndDelete(req.params._id);
+      const product = await Product.findByIdAndDelete(req.params.id);
       if (!product) throw new ApiError(404, "Product Not Found");
       res.status(StatusCodes.OK).json({
         message: "Delete Product Done",
