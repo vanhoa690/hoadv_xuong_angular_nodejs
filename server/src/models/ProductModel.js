@@ -27,9 +27,15 @@ const ProductSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    bidSession: {
-      type: Schema.Types.ObjectId,
-      ref: "BidSession",
+    startAt: {
+      type: Date,
+    },
+    endAt: {
+      type: Date,
+    },
+    bids: {
+      type: [Schema.Types.ObjectId],
+      ref: "Bid",
     },
   },
   {

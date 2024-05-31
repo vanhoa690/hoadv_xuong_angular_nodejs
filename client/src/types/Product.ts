@@ -1,3 +1,5 @@
+import { Bid } from './Bid';
+
 export type Product = {
   _id: string;
   title: string;
@@ -6,7 +8,7 @@ export type Product = {
   // category: string;
   image: string;
   isShow: boolean;
-  bidInfo?: any;
+  bids: Bid[];
 };
 
 export type ProductForm = {

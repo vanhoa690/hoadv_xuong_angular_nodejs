@@ -38,12 +38,13 @@ class CategoriesController {
   // PUT /categories/:id
   async updateCategory(req, res, next) {
     try {
-      const category = await Category.findByIdAndUpdate(
+      const newCategory = await Category.findByIdAndUpdate(
         req.params._id,
-        req.body
+        req.body, {
+          new: true
+        }
       );
-      if (!category) throw new ApiError(404, "Category Not Found");
-      const updateCategory = await Category.findById(req.params._id);
+      if (!newCategory) throw new ApiError(404, "Category Not Found");
       res.status(StatusCodes.OK).json({
         message: "Update Category Successfull",
         data: updateCategory,

@@ -46,15 +46,28 @@
       formControlName="description"
     ></textarea>
   </div>
-  <!-- <div class="mb-3">
+  <div class="mb-3">
     <label for="category" class="form-label">Category</label>
-    <select class="form-control" id="category" formControlName="category">
+    <select class="form-control" id="category">
       <option value="">Select Category</option>
       <option value="1">Electronics</option>
       <option value="2">Jewelery</option>
       <option value="3">Men's clothing</option>
     </select>
-  </div> -->
+  </div>
+  <div class="mb-3">
+    <label for="startAt" class="form-label">Start At</label>
+    <input type="datetime-local" id="startAt" />
+  </div>
+  <div class="mb-3">
+    <label for="time" class="form-label">Times</label>
+    <select class="form-control" id="time">
+      <option value="">Select Time</option>
+      <option value="15">15p</option>
+      <option value="30">30p</option>
+      <option value="60">1h</option>
+    </select>
+  </div>
   <div class="mb-3 form-check">
     <input
       type="checkbox"
@@ -68,6 +81,7 @@
   <button
     type="submit"
     class="btn btn-primary"
+    [disabled]="addProductForm.invalid"
   >
     Create Product
   </button>

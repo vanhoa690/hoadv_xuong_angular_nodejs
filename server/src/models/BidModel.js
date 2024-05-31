@@ -3,12 +3,16 @@ const Schema = mongoose.Schema;
 
 const BidSchema = new Schema(
   {
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
     price: {
-      type: number,
+      type: Number,
       required: true,
     },
   },

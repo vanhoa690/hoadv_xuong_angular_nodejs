@@ -15,7 +15,7 @@ class ProductsController {
   // GET /products/:id
   async getProductDetail(req, res, next) {
     try {
-      const product = await Product.findById(req.params._id);
+      const product = await Product.findById(req.params.id).populate('bids').populate('bids.user');
 
       if (!product) throw new ApiError(404, "Product Not Found");
       res.status(StatusCodes.OK).json(product);
@@ -38,9 +38,12 @@ class ProductsController {
   // PUT /products/:id
   async updateProduct(req, res, next) {
     try {
-      const product = await Product.findByIdAndUpdate(req.params._id, req.body);
-      if (!product) throw new ApiError(404, "Product Not Found");
-      const updateProduct = await Product.findById(req.params._id);
+      const updateProduct = await Product.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+      if (!updateProduct) throw new ApiError(404, "Product Not Found");
       res.status(StatusCodes.OK).json({
         message: "Update Product Successfull",
         data: updateProduct,
