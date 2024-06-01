@@ -15,6 +15,10 @@ const BidSchema = new Schema(
       type: Number,
       required: true,
     },
+    isWinBid: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
