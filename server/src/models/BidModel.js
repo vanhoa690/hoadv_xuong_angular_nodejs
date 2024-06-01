@@ -7,9 +7,17 @@ const BidSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+    },
     price: {
-      type: number,
+      type: Number,
       required: true,
+    },
+    isWidBid: {
+      type: Boolean,
+      default: false,
     },
   },
   {

@@ -19,17 +19,23 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    // category: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "Category",
-    // },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+    },
     isShow: {
       type: Boolean,
       default: true,
     },
-    bidSession: {
-      type: Schema.Types.ObjectId,
-      ref: "BidSession",
+    startAt: {
+      type: Date,
+    },
+    endAt: {
+      type: Date,
+    },
+    bids: {
+      type: [Schema.Types.ObjectId],
+      ref: "Bid",
     },
   },
   {

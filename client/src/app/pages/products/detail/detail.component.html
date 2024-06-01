@@ -5,4 +5,10 @@
   <img [src]="product.image" width="100px" />
   <p>{{ product.description }}</p>
 </div>
-}
+<form [formGroup]="bidForm" (ngSubmit)="handleSubmit()">
+  <input type="number" formControlName="price" />
+  <button type="submit">Bid</button>
+</form>
+@for (bid of product.bids; track bid) {
+<p>{{ bid.user }}</p>
+} }
