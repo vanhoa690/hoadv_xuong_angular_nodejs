@@ -53,7 +53,7 @@ class AuthController {
       if (!checkPassword)
         throw new ApiError(StatusCodes.BAD_REQUEST, "Tai khoan ko hop le");
 
-      const token = jwt.sign({ id: checkUser._id }, process.env.SECRET_KEY, {
+      const token = jwt.sign({ id: checkUser._id }, 'process.env.SECRET_KEY', {
         expiresIn: "1w",
       });
       res.status(StatusCodes.OK).json({

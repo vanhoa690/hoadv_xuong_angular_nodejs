@@ -4,7 +4,7 @@
   <h2>{{ product.title }}</h2>
   <img [src]="product.image" width="100px" />
   <p>{{ product.description }}</p>
-
+  <countdown [config]="config" />
   <form [formGroup]="bidForm" (ngSubmit)="handleSubmitBid()">
     <input type="number" formControlName="price" />
     <button type="submit">Bid</button>

@@ -10,11 +10,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { BidService } from '../../../services/bid.service';
+import { CountdownComponent, CountdownConfig } from 'ngx-countdown';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CountdownComponent],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.css',
 })
@@ -28,6 +29,10 @@ export class ProductDetailComponent {
   bidForm: FormGroup = new FormGroup({
     price: new FormControl(0, Validators.min(0)),
   });
+  config: CountdownConfig = {
+    leftTime: 3600,
+  };
+
   ngOnInit() {
     // const id: string = this.route.snapshot.params[id
     this.route.params.subscribe((param) => {
@@ -46,11 +51,14 @@ export class ProductDetailComponent {
 
   handleSubmitBid() {
     console.log(this.bidForm.value);
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
     this.bidService
       .createBid({
         price: this.bidForm.value.price,
         product: this.productId,
-        user: '6659df9bbd9a644c381cefde',
+        user: userId,
       })
       .subscribe({
         next: (data) => {

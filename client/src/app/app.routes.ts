@@ -6,6 +6,8 @@ import { ProductDetailComponent } from './pages/products/detail/detail.component
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { ProductCreateComponent } from './pages/admin/products/create/create.component';
 import { ProductEditComponent } from './pages/admin/products/edit/edit.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +39,14 @@ export const routes: Routes = [
       {
         path: 'products/:id',
         component: ProductDetailComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
       },
     ],
   },

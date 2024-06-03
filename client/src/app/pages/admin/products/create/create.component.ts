@@ -30,7 +30,7 @@ export class ProductCreateComponent {
     image: new FormControl('', [Validators.required]),
     price: new FormControl(0, [Validators.required, Validators.min(0)]),
     description: new FormControl('', [Validators.required]),
-    // category: new FormControl('', [Validators.required]),
+    category: new FormControl('', [Validators.required]),
     isShow: new FormControl(true),
   });
 
@@ -38,7 +38,6 @@ export class ProductCreateComponent {
     console.log(this.addProductForm);
     this.productService.createProduct(this.addProductForm.value).subscribe({
       next: () => {
-        console.log('aa');
         this.messageService.add({
           severity: 'success',
           summary: 'Create Product',
