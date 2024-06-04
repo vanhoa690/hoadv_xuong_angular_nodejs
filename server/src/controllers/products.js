@@ -1,6 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import Product from "../models/ProductModel";
 import ApiError from "../utils/ApiError";
+import Bid from "../models/BidModel";
+import User from "../models/UserModel";
 
 class ProductsController {
   // GET /products
@@ -15,7 +17,14 @@ class ProductsController {
   // GET /products/:id
   async getProductDetail(req, res, next) {
     try {
-      const product = await Product.findById(req.params.id).populate('bids');
+      const product = await Product.findById(req.params.id).populate({
+        path: "bids",
+        populate: {
+          path: "user",
+          model: User,
+          select: "email username",
+        },
+      });
 
       if (!product) throw new ApiError(404, "Product Not Found");
       res.status(StatusCodes.OK).json(product);

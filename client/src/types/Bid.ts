@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export type BidForm = {
   product: string;
   bids: string[];
@@ -7,4 +9,6 @@ export type BidForm = {
 
 export type Bid = BidForm & {
   _id: string;
+  user: User;
+  createdAt: Date;
 };
