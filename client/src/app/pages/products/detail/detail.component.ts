@@ -25,8 +25,10 @@ export class ProductDetailComponent {
   bidService = inject(BidService);
 
   product!: Product | undefined;
+  maxPriceBid: number = 0;
+
   config: CountdownConfig = {
-    leftTime: 3600,
+    leftTime: 0,
   };
   bidForm: FormGroup = new FormGroup({
     price: new FormControl('', [Validators.min(1)]),
@@ -36,6 +38,13 @@ export class ProductDetailComponent {
     this.productService.getProductDetail(id).subscribe({
       next: (data) => {
         this.product = data;
+        const priceBidList = data.bids.map((bid) => bid.price);
+        this.maxPriceBid = priceBidList.length ? Math.max(...priceBidList) : 0;
+        const nowTime = new Date().getTime();
+        const endAtTime = new Date(data.endAt).getTime();
+        this.config = {
+          leftTime: Math.floor((endAtTime - nowTime) / 1000),
+        };
       },
       error: (error) => {
         // show thong bao error

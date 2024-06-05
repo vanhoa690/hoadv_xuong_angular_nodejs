@@ -1,4 +1,6 @@
-<h2 class="text-center my-3">Product Add</h2>
+<h2 class="text-center my-3">Product Update</h2>
+<p-toast position="top-right"></p-toast>
+
 <form [formGroup]="addProductForm" (ngSubmit)="handleUpdateProduct()">
   <div class="mb-3">
     <label for="title" class="form-label">Title</label>
@@ -48,9 +50,27 @@
     <label for="category" class="form-label">Category</label>
     <select class="form-control" id="category" formControlName="category">
       <option value="">Select Category</option>
-      <option value="1">Electronics</option>
-      <option value="2">Jewelery</option>
-      <option value="3">Men's clothing</option>
+      @for (category of categories; track category._id) {
+      <option value="{{ category._id }}">{{ category.name }}</option>
+      }
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="startAt" class="form-label">Start At</label>
+    <input
+      type="datetime-local"
+      class="form-control"
+      id="startAt"
+      formControlName="startAt"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="times" class="form-label">Select Times</label>
+    <select class="form-control" id="times" formControlName="bidTime">
+      <option value="0">Select Time</option>
+      <option value="15">15p</option>
+      <option value="30">30p</option>
+      <option value="60">1h</option>
     </select>
   </div>
   <div class="mb-3 form-check">
@@ -63,11 +83,5 @@
     />
     <label class="form-check-label" for="isShow">Show Product</label>
   </div>
-  <button
-    type="submit"
-    class="btn btn-primary"
-    [disabled]="addProductForm.invalid"
-  >
-    Update Product
-  </button>
+  <button type="submit" class="btn btn-primary">Update Product</button>
 </form>

@@ -7,18 +7,26 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from '../../../../services/category.service';
+import { Category } from '../../../../../types/Category';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ToastModule],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css',
+  providers: [MessageService],
 })
 export class ProductEditComponent {
   productService = inject(ProductService);
   route = inject(ActivatedRoute);
   productId!: string;
+  categories: Category[] = [];
+  categoryService = inject(CategoryService);
+  messageService = inject(MessageService);
 
   addProductForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -27,6 +35,8 @@ export class ProductEditComponent {
     description: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required]),
     isShow: new FormControl(true),
+    startAt: new FormControl(''),
+    bidTime: new FormControl(0),
   });
 
   ngOnInit() {
@@ -35,13 +45,27 @@ export class ProductEditComponent {
       this.productId = param['id'];
       this.productService.getProductDetail(param['id']).subscribe({
         next: (data) => {
-          this.addProductForm.patchValue(data);
+          const now = new Date(data.startAt);
+          now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+          this.addProductForm.patchValue({
+            ...data,
+            startAt: now.toISOString().slice(0, 16),
+          });
         },
         error: (error) => {
           // show thong bao error
           console.error(error);
         },
       });
+    });
+    this.categoryService.getAllCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (error) => {
+        // show error
+        console.error(error.message);
+      },
     });
   }
 

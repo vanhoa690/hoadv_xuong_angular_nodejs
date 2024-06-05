@@ -1,4 +1,4 @@
-import { Bid } from "./Bid";
+import { Bid } from './Bid';
 
 export type Product = {
   _id: string;
@@ -8,6 +8,9 @@ export type Product = {
   category: string;
   image: string;
   isShow: boolean;
+  bidTime: number;
+  startAt: Date;
+  endAt: Date;
   bids: Bid[];
 };
 

@@ -37,7 +37,7 @@ export class ProductCreateComponent {
     category: new FormControl('', [Validators.required]),
     isShow: new FormControl(true),
     startAt: new FormControl(''),
-    times: new FormControl(''),
+    bidTime: new FormControl(0),
   });
 
   ngOnInit() {
@@ -54,25 +54,20 @@ export class ProductCreateComponent {
 
   handleCreateProduct() {
     console.log(this.addProductForm.value);
-    this.productService
-      .createProduct({ ...this.addProductForm.value, endAt: new Date() })
-      .subscribe({
-        next: () => {
-          console.log('aa');
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Create Product',
-            detail: 'Thanh Cong',
-          });
-          setTimeout(
-            () => this.router.navigate(['/admin/products/list']),
-            1000
-          );
-        },
-        error: (error) => {
-          // show error
-          console.error(error.message);
-        },
-      });
+    this.productService.createProduct(this.addProductForm.value).subscribe({
+      next: () => {
+        console.log('aa');
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Create Product',
+          detail: 'Thanh Cong',
+        });
+        setTimeout(() => this.router.navigate(['/admin/products/list']), 1000);
+      },
+      error: (error) => {
+        // show error
+        console.error(error.message);
+      },
+    });
   }
 }

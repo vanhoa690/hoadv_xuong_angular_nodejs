@@ -27,6 +27,9 @@ const ProductSchema = new Schema(
       type: Boolean,
       default: true,
     },
+    bidTime: {
+      type: Number,
+    },
     startAt: {
       type: Date,
     },
