@@ -26,8 +26,11 @@ export class ProductDetailComponent {
 
   product!: Product | undefined;
   config: CountdownConfig = {
-    leftTime: 3600,
+    leftTime: 0,
   };
+
+  // bidPriceMax: number = 0;
+
   bidForm: FormGroup = new FormGroup({
     price: new FormControl('', [Validators.min(1)]),
   });
@@ -36,6 +39,15 @@ export class ProductDetailComponent {
     this.productService.getProductDetail(id).subscribe({
       next: (data) => {
         this.product = data;
+        const stepTimeBid = Math.floor(
+          (new Date(data.endAt).getTime() - new Date().getTime()) / 1000
+        );
+        console.log(stepTimeBid);
+        this.config = {
+          leftTime: stepTimeBid,
+        };
+        // const maxPrice = Math.max(...data.bids.map((bid) => bid.price));
+        // this.bidPriceMax = maxPrice;
       },
       error: (error) => {
         // show thong bao error
@@ -64,6 +76,7 @@ export class ProductDetailComponent {
         bids: this.product.bids.map((bid) => bid._id),
         user: userId,
         price: this.bidForm.value.price,
+        bidPriceMax: this.product.bidPriceMax,
       })
       .subscribe({
         next: (data) => {

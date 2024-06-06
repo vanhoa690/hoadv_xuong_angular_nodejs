@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Category } from '../../../../../types/Category';
+import { CategoryService } from '../../../../services/category.service';
 
 @Component({
   selector: 'app-edit',
@@ -16,6 +18,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './edit.component.css',
 })
 export class ProductEditComponent {
+  categories: Category[] = [];
+  categoryService = inject(CategoryService);
   productService = inject(ProductService);
   route = inject(ActivatedRoute);
   productId!: string;
@@ -27,6 +31,8 @@ export class ProductEditComponent {
     description: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required]),
     isShow: new FormControl(true),
+    bidTime: new FormControl(''),
+    startAt: new FormControl(''),
   });
 
   ngOnInit() {
@@ -35,13 +41,25 @@ export class ProductEditComponent {
       this.productId = param['id'];
       this.productService.getProductDetail(param['id']).subscribe({
         next: (data) => {
-          this.addProductForm.patchValue(data);
+          const now = new Date(data.startAt);
+          now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+          const startAt = now.toISOString().slice(0, 16);
+          this.addProductForm.patchValue({ ...data, startAt: startAt });
         },
         error: (error) => {
           // show thong bao error
           console.error(error);
         },
       });
+    });
+    this.categoryService.getAllCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (error) => {
+        // show error
+        console.error(error.message);
+      },
     });
   }
 

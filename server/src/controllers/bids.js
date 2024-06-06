@@ -10,6 +10,10 @@ class BidsController {
       const newBid = await Bid.create(req.body);
       await Product.findByIdAndUpdate(req.body.product, {
         bids: [...req.body.bids, newBid._id],
+        bidPriceMax:
+          req.body.price > req.body.bidPriceMax
+            ? req.body.price
+            : req.body.bidPriceMax,
       });
       res.status(StatusCodes.CREATED).json({
         message: "Create Bid Successfull",

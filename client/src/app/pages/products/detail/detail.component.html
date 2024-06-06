@@ -10,6 +10,7 @@
   <input type="number" formControlName="price" />
   <button type="submit">Bid</button>
 </form>
+<p>bidPriceMax : {{ product.bidPriceMax }}</p>
 @for (bid of product.bids; track bid) {
 <p>{{ bid.user.username }} - {{ bid.createdAt | date : "dd/MM/yyyy" }}</p>
 } }

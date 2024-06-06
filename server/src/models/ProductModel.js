@@ -33,6 +33,12 @@ const ProductSchema = new Schema(
     endAt: {
       type: Date,
     },
+    bidTime: {
+      type: Number,
+    },
+    bidPriceMax: {
+      type: Number,
+    },
     bids: {
       type: [Schema.Types.ObjectId],
       ref: "Bid",

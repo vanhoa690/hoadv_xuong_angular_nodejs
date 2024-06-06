@@ -5,6 +5,7 @@ export type BidForm = {
   bids: string[];
   user: string;
   price: number;
+  bidPriceMax: number;
 };
 
 export type Bid = BidForm & {

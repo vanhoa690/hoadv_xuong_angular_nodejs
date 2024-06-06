@@ -35,7 +35,13 @@ class ProductsController {
   // POST /products
   async createProduct(req, res, next) {
     try {
-      const newProduct = await Product.create(req.body);
+      const endAtTime =
+        new Date(req.body.startAt).getTime() + req.body.bidTime * 60 * 1000;
+
+      const newProduct = await Product.create({
+        ...req.body,
+        endAt: new Date(endAtTime),
+      });
       res.status(StatusCodes.CREATED).json({
         message: "Create Product Successfull",
         data: newProduct,
@@ -47,9 +53,11 @@ class ProductsController {
   // PUT /products/:id
   async updateProduct(req, res, next) {
     try {
+      const endAtTime =
+        new Date(req.body.startAt).getTime() + req.body.bidTime * 60 * 1000;
       const updateProduct = await Product.findByIdAndUpdate(
         req.params.id,
-        req.body,
+        { ...req.body, endAt: new Date(endAtTime) },
         { new: true }
       );
       if (!updateProduct) throw new ApiError(404, "Product Not Found");

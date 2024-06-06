@@ -37,7 +37,7 @@ export class ProductCreateComponent {
     category: new FormControl('', [Validators.required]),
     isShow: new FormControl(true),
     startAt: new FormControl(''),
-    times: new FormControl(''),
+    bidTime: new FormControl(''),
   });
 
   ngOnInit() {
