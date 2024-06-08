@@ -38,6 +38,7 @@ const ProductSchema = new Schema(
     },
     bidPriceMax: {
       type: Number,
+      default: 0,
     },
     bids: {
       type: [Schema.Types.ObjectId],
